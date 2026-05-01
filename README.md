@@ -1,73 +1,39 @@
-# Домашнее задание к занятию "`Система мониторинга Zabbix`" - `Алексей Сидоров`
+# Домашнее задание к занятию "`Disaster recovery и Keepalived`" - `Алексей Сидоров`
 ---
 
 ### Задание 1
 
-`Установите Zabbix Server с веб-интерфейсом.`
-
-Процесс выполнения
-1. Выполняя ДЗ, сверяйтесь с процессом отражённым в записи лекции.
-2. Установите PostgreSQL. Для установки достаточна та версия, что есть в системном репозитороии Debian 11.
-3. Пользуясь конфигуратором команд с официального сайта, составьте набор команд для установки последней версии Zabbix с поддержкой PostgreSQL и Nginx.
-4. Выполните все необходимые команды для установки Zabbix Server и Zabbix Web Server.
+1. Дана схема для Cisco Packet Tracer, рассматриваемая в лекции.
+2. На данной схеме уже настроено отслеживание интерфейсов маршрутизаторов Gi0/1 (для нулевой группы)
+3. Необходимо аналогично настроить отслеживание состояния интерфейсов Gi0/0 (для первой группы).
+4. Для проверки корректности настройки, разорвите один из кабелей между одним из маршрутизаторов и Switch0 и запустите ping между PC0 и Server0.
+5. На проверку отправьте получившуюся схему в формате pkt и скриншот, где виден процесс настройки маршрутизатора.
 
 
+`Cкриншот процесс настройки маршрутизатора:`
 
 
-`Tекст использованных команд:`
-
-```
-sudo -s
-wget https://repo.zabbix.com/zabbix/7.4/release/ubuntu/pool/main/z/zabbix-release/zabbix-release_latest_7.4+ubuntu24.04_all.deb
-dpkg -i zabbix-release_latest_7.4+ubuntu24.04_all.deb
-apt update
-apt install postgresql
-apt install zabbix-server-pgsql zabbix-frontend-php php8.3-pgsql zabbix-nginx-conf zabbix-sql-scripts
-su - postgres -c 'psql --command "CREATE USER zabbix WITH PASSWORD 
-'\'qwertyui\'';"'
-su - postgres -c 'psql --command "CREATE DATABASE zabbix OWNER zabbix;"'
-zcat /usr/share/zabbix/sql-scripts/postgresql/server.sql.gz | sudo -u zabbix psql zabbix
-sed -i 's/# DBPassword=/DBPassword=qwertyui/g' /etc/zabbix/zabbix_server.conf
-sudo systemctl restart zabbix-server nginx.service
-sudo systemctl enable zabbix-server
-```
-
-
-`Cкриншоты авторизации в админке:`
-
-
-![img1](https://github.com/PhartomX/netology_zabbix_1/blob/main/img/img1.png)
-
-![img2](https://github.com/PhartomX/netology_zabbix_1/blob/main/img/img2.png)
-
+![img1](https://github.com/PhartomX/disaster_recovery_keepalived/blob/main/img/img1.png)
 
 ---
 
 ### Задание 2
 
-`Установите Zabbix Agent на два хоста.`
+1. Запустите две виртуальные машины Linux, установите и настройте сервис Keepalived как в лекции, используя пример конфигурационного файла.
+2. Настройте любой веб-сервер (например, nginx или simple python server) на двух виртуальных машинах
+3. Напишите Bash-скрипт, который будет проверять доступность порта данного веб-сервера и существование файла index.html в root-директории данного веб-сервера.
+4. Настройте Keepalived так, чтобы он запускал данный скрипт каждые 3 секунды и переносил виртуальный IP на другой сервер, если bash-скрипт завершался с кодом, отличным от нуля (то есть порт веб-сервера был недоступен или отсутствовал index.html). Используйте для этого секцию vrrp_script
+5. На проверку отправьте получившейся bash-скрипт и конфигурационный файл keepalived, а также скриншот с демонстрацией переезда плавающего ip на другой сервер в случае недоступности порта или файла index.html
 
-Процесс выполнения
-1. Выполняя ДЗ, сверяйтесь с процессом отражённым в записи лекции.
-2. Установите Zabbix Agent на 2 вирт.машины, одной из них может быть ваш Zabbix Server.
-3. Добавьте Zabbix Server в список разрешенных серверов ваших Zabbix Agentов.
-4. Добавьте Zabbix Agentов в раздел Configuration > Hosts вашего Zabbix Servera.
-5. Проверьте, что в разделе Latest Data начали появляться данные с добавленных агентов.
-
-`Установка агента:`
-```
-sudo -s 
-wget https://repo.zabbix.com/zabbix/7.4/release/ubuntu/pool/main/z/zabbix-release/zabbix-release_latest_7.4+ubuntu24.04_all.deb
-dpkg -i zabbix-release_latest_7.4+ubuntu24.04_all.deb
-apt update 
-apt install zabbix-agent
-systemctl restart zabbix-agent
-systemctl enable zabbix-agent 
+`bash-скрипт:`
 ```
 
-`Cкриншот раздела Monitoring > Hosts:`
 
-![img3](https://github.com/PhartomX/netology_zabbix_1/blob/main/img/img3.png)
+```
+
+`Cкриншот с демонстрацией переезда плавающего ip:`
+
+![img3](https://github.com/PhartomX/disaster_recovery_keepalived/blob/main/img/img2.png)
 
 `Cкриншоты логов zabbix agent:`
 
