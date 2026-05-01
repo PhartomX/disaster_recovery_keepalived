@@ -35,15 +35,5 @@
 
 ![img3](https://github.com/PhartomX/disaster_recovery_keepalived/blob/main/img/img2.png)
 
-`Cкриншоты логов zabbix agent:`
-
-![img4](https://github.com/PhartomX/netology_zabbix_1/blob/main/img/img4.png)
-
-![img5](https://github.com/PhartomX/netology_zabbix_1/blob/main/img/img5.png)
-
-
-`Cкриншот раздела Monitoring > Latest data:`
-
-![img6](https://github.com/PhartomX/netology_zabbix_1/blob/main/img/img6.png)
 
 ---
