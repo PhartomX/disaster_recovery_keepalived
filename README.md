@@ -15,6 +15,7 @@
 
 ![img1](https://github.com/PhartomX/disaster_recovery_keepalived/blob/main/img/img1.png)
 
+![img2](https://github.com/PhartomX/disaster_recovery_keepalived/blob/main/img/img2.png)
 ---
 
 ### Задание 2
@@ -33,7 +34,7 @@
 
 `Cкриншот с демонстрацией переезда плавающего ip:`
 
-![img3](https://github.com/PhartomX/disaster_recovery_keepalived/blob/main/img/img2.png)
+![img3](https://github.com/PhartomX/disaster_recovery_keepalived/blob/main/img/img3.png)
 
 
 ---
